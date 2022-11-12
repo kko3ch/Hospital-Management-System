@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from . import models
+from . import models,forms
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime, timedelta, date
@@ -27,7 +27,6 @@ def patientclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
     return render(request,'hospital/patientclick.html')
-
 
 def admin_signup_view(request):
     form=forms.AdminSigupForm()
@@ -103,3 +102,23 @@ def afterlogin_view(request):
             return redirect('patient-dashboard')
         else:
             return render(request,'hospital/patient_wait_for_approval.html')
+
+            
+
+# @login_required(login_url='adminlogin')
+# @user_passes_test(is_admin)
+# def admin_add_appointment_view(request):
+#     appointmentForm=forms.AppointmentForm()
+#     mydict={'appointmentForm':appointmentForm,}
+#     if request.method=='POST':
+#         appointmentForm=forms.AppointmentForm(request.POST)
+#         if appointmentForm.is_valid():
+#             appointment=appointmentForm.save(commit=False)
+#             appointment.doctorId=request.POST.get('doctorId')
+#             appointment.patientId=request.POST.get('patientId')
+#             appointment.doctorName=models.User.objects.get(id=request.POST.get('doctorId')).first_name
+#             appointment.patientName=models.User.objects.get(id=request.POST.get('patientId')).first_name
+#             appointment.status=True
+#             appointment.save()
+#         return HttpResponseRedirect('admin-view-appointment')
+#     return render(request,'hospital/admin_add_appointment.html',context=mydict)
