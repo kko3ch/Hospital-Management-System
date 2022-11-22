@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from hospital import views
+from HMSClient import views
 from django.contrib.auth.views import LoginView,LogoutView
 
 
@@ -37,6 +37,22 @@ urlpatterns = [
     path('approve-doctor/<int:pk>', views.approve_doctor_view,name='approve-doctor'),
     path('reject-doctor/<int:pk>', views.reject_doctor_view,name='reject-doctor'),
     path('admin-view-doctor-specialisation',views.admin_view_doctor_specialisation_view,name='admin-view-doctor-specialisation'),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     path('admin-patient', views.admin_patient_view,name='admin-patient'),
     path('admin-view-patient', views.admin_view_patient_view,name='admin-view-patient'),

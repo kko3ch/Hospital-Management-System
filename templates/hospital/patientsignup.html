@@ -13,11 +13,9 @@
       background-color: #b6bde7;
       font-family: 'Roboto', sans-serif;
     }
-
     a:link {
       text-decoration: none;
     }
-
     .note {
       text-align: center;
       height: 80px;
@@ -26,13 +24,11 @@
       font-weight: bold;
       line-height: 80px;
     }
-
     .form-content {
       padding: 5%;
       border: 1px solid #ced4da;
       margin-bottom: 2%;
     }
-
     .form-control {
       border-radius: 1.5rem;
     }
@@ -50,12 +46,15 @@
 
 </head>
 
+
 <body>
+
   {% include "hospital/navbar.html" %}
   <br>
   <br>
   <br>
   <br>
+
   <!--- signup page for patient by admin(sumit)  ---------->
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -105,10 +104,7 @@
         </div>
       </div>
     </div>
-
   </form>
-
   {% include "hospital/footer.html" %}
 </body>
-
 </html>

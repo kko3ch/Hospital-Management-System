@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+import os
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+STATIC_DIR=os.path.join(BASE_DIR,'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HMSClient',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'HMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR,],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,17 +70,17 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'HMS.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -116,9 +119,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+STATICFILES_DIRS=[STATIC_DIR,]
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+LOGIN_REDIRECT_URL='/afterlogin'
+
+#for contact us give your gmail id and password
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'emailyatom@gmail.com' # this email will be used to send emails
+EMAIL_HOST_PASSWORD = 'fwmglzsydbidjhdq' # host email password required
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# now sign in with your host gmail account in your browser
+# open following link and turn it ON
+# https://myaccount.google.com/lesssecureapps
+# otherwise you will get SMTPAuthenticationError at /contactus
+# this process is required because google blocks apps authentication by default
+EMAIL_RECEIVING_USER = ['emailyatom@gmail.com'] # email on which you will receive messages sent from website
